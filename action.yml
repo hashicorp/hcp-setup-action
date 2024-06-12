@@ -1,0 +1,25 @@
+name: 'Setup the HashiCorp Cloud Platform CLI'
+author: 'HashiCorp, Inc.'
+description: |-
+  Downloads and installs the HashiCorp Cloud Platform CLI, making it available
+  on the PATH for future steps.
+
+branding:
+  icon: 'terminal'
+  color: 'gray-dark'
+
+inputs:
+  placeholder:
+    required: false
+    description: |-
+      TBD
+
+# Define your outputs here.
+outputs:
+  placeholder:
+    description: |-
+      TBD
+
+runs:
+  using: node20
+  main: dist/index.js
