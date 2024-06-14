@@ -39,3 +39,147 @@ jobs:
       - name: Lint
         id: npm-lint
         run: npm run lint
+
+  test-specific:
+    name: Test Specific HCP version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Download
+        id: download
+        uses: ./
+        with:
+          version: 0.2.0
+
+      - name: Download but should be cached
+        id: download-cache
+        uses: ./
+        with:
+          version: 0.2.0
+
+      - name: 'Use hcp CLI'
+        run: 'hcp version'
+
+      - name: 'Assert version'
+        run: |
+          test "$(hcp version)" = "hcp v0.2.0 (7616a53de16a3f87d4d30f9b72e2eb652620b540) go1.22.2 amd64"
+
+  test-version-constraint:
+    name: Test Version Constraint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Download
+        id: download
+        uses: ./
+        with:
+          version: '> 0.1.0 < 0.3.0'
+
+      - name: Download but should be cached
+        id: download-cache
+        uses: ./
+        with:
+          version: '> 0.1.0 < 0.3.0'
+
+      - name: 'Use hcp CLI'
+        run: 'hcp version'
+
+      - name: 'Assert version'
+        run: |
+          test "$(hcp version)" = "hcp v0.2.0 (7616a53de16a3f87d4d30f9b72e2eb652620b540) go1.22.2 amd64"
+
+  test-latest:
+    name: Test Installing Latest HCP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Download
+        id: download
+        uses: ./
+        with:
+          version: latest
+
+      - name: Download but should be cached
+        id: download-cache
+        uses: ./
+        with:
+          version: 'latest'
+
+      - name: 'Use hcp CLI'
+        run: 'hcp version'
+
+  test-bad-version:
+    name: Test Installing Bad HCP Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Download
+        id: download
+        continue-on-error: true
+        uses: ./
+        with:
+          version: '3.100.12'
+
+  test-auth:
+    name: Test Auth
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate
+        id: auth
+        uses: hashicorp/hcp-auth-action@main
+        with:
+          workload_identity_provider: iam/project/c9a34373-d6dc-4043-b5e6-4fe257d7cea5/service-principal/test-cli/workload-identity-provider/github-test
+
+      - name: Download
+        id: download
+        uses: ./
+        with:
+          version: '0.3.0'
+
+      - name: 'Use hcp CLI'
+        run: 'hcp projects list'
+
+  test-project:
+    name: Test Set Project
+    runs-on: ubuntu-latest
+    env:
+      GHA_HCP_PROJECT: '6d28ac87-994b-4d9c-945c-805f3b85ff45'
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Download
+        id: download
+        uses: ./
+        with:
+          version: '0.3.0'
+          project_id: ${{ env.GHA_HCP_PROJECT }}
+
+      - name: 'Use hcp CLI'
+        run: 'hcp profile display'
+
+      - name: 'Assert project'
+        run: |
+          test "$(hcp profile get project_id)" = ${{ env.GHA_HCP_PROJECT }}
