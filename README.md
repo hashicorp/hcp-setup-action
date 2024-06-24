@@ -44,8 +44,8 @@ jobs:
     CLI to use.
   - Version constraint (e.g. `>= 0.3.0`): Specifies a version constraint for the
     `hcp` CLI. The latest version that satisfies the constraint will be used.
-    See https://www.npmjs.com/package/semver for details on constructing a
-    version constraint string.
+    See [SemVer](https://www.npmjs.com/package/semver) for details on
+    constructing a version constraint string.
 
 - `project_id` - (Optional) Configure the default HCP Project ID for the `hcp`
   CLI. This is equivalent to running `hcp profile set project_id <project_id>`.
