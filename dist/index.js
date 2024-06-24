@@ -31318,6 +31318,9 @@ exports["default"] = _default;
 
 "use strict";
 
+/**
+ * Copyright (c) HashiCorp, Inc.
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -31505,6 +31508,9 @@ async function installHCP(release) {
 
 "use strict";
 
+/**
+ * Copyright (c) HashiCorp, Inc.
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);

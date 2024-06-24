@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ */
+
 import * as semver from 'semver'
 import * as core from '@actions/core'
 import { HttpClient } from '@actions/http-client'
