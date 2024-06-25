@@ -85,8 +85,16 @@ async function realRun(): Promise<void> {
     )
   }
 
-  // TODO Set the profile to be quiet. Need to update and release a new version
-  // of the CLI to support this.
+  // Set the profile to be quiet, disabling prompting. This is not supported in
+  // early versions of the CLI so we simply log a warning if it fails.
+  try {
+    await exec.exec('hcp', ['profile', 'set', 'core/quiet', 'true'])
+  } catch (err) {
+    core.warning(
+      `Failed to configure the profile to be quiet. ` +
+        `This is not supported in versions < 0.4.0.`
+    )
+  }
 
   // If project_id is set, set the profile to use the project_id
   if (projectId) {
