@@ -1,9 +1,11 @@
 # Setup the `hcp` CLI for use in GitHub Actions
 
-Configures the `hcp` CLI for use in GitHub Actions. The Action installs the
-specified version of `hcp` and configures the `hcp` CLI for use in GitHub
-Actions. The downloaded `hcp` CLI is cached in the GitHub Actions workspace for
-subsequent use.
+Configures the [`hcp` CLI](https://developer.hashicorp.com/hcp/docs/cli) for use
+in GitHub Actions. The Action installs the specified version of `hcp` and
+configures the `hcp` CLI for use in GitHub Actions. The downloaded `hcp` CLI is
+cached in the GitHub Actions workspace for subsequent use. For a full list of
+available `hcp` CLI commands, see the
+[`hcp` CLI documentation](https://developer.hashicorp.com/hcp/docs/cli/commands).
 
 ## Usage
 
@@ -27,7 +29,7 @@ jobs:
 
       - name: 'Use hcp CLI to read a secret'
         run: |
-          hcp vs secrets open --app=my-app --format=json my-secret | \
+          hcp vault-secrets secrets open --app=my-app --format=json my-secret | \
           jq -r '"MY_SECRET=\(.version.value)"' >> $GITHUB_ENV'
           echo "::add-mask::$MY_SECRET"
 ```
