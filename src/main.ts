@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ */
+
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as os from 'os'
