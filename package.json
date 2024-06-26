@@ -1,6 +1,6 @@
 {
   "name": "hcp-setup-action",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Setup the hcp CLI for use in GitHub Actions",
   "license": "MPL-2.0",
   "publisher": "hashicorp",

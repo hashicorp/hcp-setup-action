@@ -23,7 +23,7 @@ jobs:
           workload_identity_provider: 'iam/project/123456789/service-principal/my-sp/workload-identity-provider/github'
 
       - name: 'Download hcp CLI'
-        uses: 'google-github-actions/setup-gcloud@v2'
+        uses: 'hashicorp/hcp-setup-action@v0'
         with:
           version: 'latest'
 
