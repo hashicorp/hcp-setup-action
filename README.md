@@ -29,9 +29,10 @@ jobs:
 
       - name: 'Use hcp CLI to read a secret'
         run: |
-          hcp vault-secrets secrets open --app=my-app --format=json my-secret | \
-          jq -r '"MY_SECRET=\(.version.value)"' >> $GITHUB_ENV'
+          MY_SECRET=$(hcp vault-secrets secrets open \
+            --app=cli --format=json foo | jq -r '.static_version.value')
           echo "::add-mask::$MY_SECRET"
+          echo "MY_SECRET=$MY_SECRET" >> $GITHUB_ENV
 ```
 
 ## Inputs
@@ -42,7 +43,7 @@ jobs:
   - ``: Use the currently installed version of the `hcp`CLI. If the`hcp` CLI is
     not installed, the latest version will be installed.
   - `latest`: Use the latest version of the `hcp` CLI.
-  - Specific version (e.g. `0.3.0`): Specifies the exact version of the `hcp`
+  - Specific version (e.g. `0.4.0`): Specifies the exact version of the `hcp`
     CLI to use.
   - Version constraint (e.g. `>= 0.3.0`): Specifies a version constraint for the
     `hcp` CLI. The latest version that satisfies the constraint will be used.
