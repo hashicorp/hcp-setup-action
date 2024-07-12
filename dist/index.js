@@ -31348,7 +31348,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
+exports.run = run;
 const core = __importStar(__nccwpck_require__(2186));
 const exec = __importStar(__nccwpck_require__(1514));
 const os = __importStar(__nccwpck_require__(2037));
@@ -31367,7 +31367,6 @@ async function run() {
         core.setFailed(`hashicorp/hcp-setup-action failed: ${err.message}`);
     }
 }
-exports.run = run;
 async function realRun() {
     let version = core.getInput('version');
     const projectId = core.getInput('project_id');
@@ -31542,7 +31541,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.releaseVersion = exports.newestCompliantVersion = void 0;
+exports.newestCompliantVersion = newestCompliantVersion;
+exports.releaseVersion = releaseVersion;
 const semver = __importStar(__nccwpck_require__(1383));
 const core = __importStar(__nccwpck_require__(2186));
 const http_client_1 = __nccwpck_require__(6255);
@@ -31587,7 +31587,6 @@ async function newestCompliantVersion(versionSpec) {
         throw new Error(`Failed to discover compatible hcp release: ${err.message}`);
     }
 }
-exports.newestCompliantVersion = newestCompliantVersion;
 /**
  * Returns the release info for the given version.
  * @param version The specific version to download.
@@ -31609,7 +31608,6 @@ async function releaseVersion(version) {
         throw new Error(`Failed to retrieve hcp release for version ${version}: ${err.message}`);
     }
 }
-exports.releaseVersion = releaseVersion;
 
 
 /***/ }),
