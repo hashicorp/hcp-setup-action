@@ -157,7 +157,14 @@ jobs:
           version: '0.3.0'
 
       - name: 'Use hcp CLI'
-        run: 'hcp projects list'
+        run: |
+          MY_SECRET=$(hcp vault-secrets secrets open \
+            --app=cli --format=json foo | jq -r '.static_version.value')
+          echo "::add-mask::$MY_SECRET"
+          echo "MY_SECRET=$MY_SECRET" >> $GITHUB_ENV
+
+      - name: 'env'
+        run: env
 
   test-project:
     name: Test Set Project
